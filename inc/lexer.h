@@ -2,7 +2,7 @@
 #include "main.h"
 
 enum BF_TOKEN {
-    INVALID_INSTRUCTION,
+    INVALID_TOKEN,
     INC_DATA_PTR,
     DEC_DATA_PTR,
     INC_BYTE,
@@ -10,7 +10,8 @@ enum BF_TOKEN {
     OUTPUT_BYTE,
     INPUT_BYTE,
     BYTE_EQ_ZERO,
-    BYTE_NEQ_ZERO
+    BYTE_NEQ_ZERO,
+    COMMENT
 };
 
 namespace Lexer 
