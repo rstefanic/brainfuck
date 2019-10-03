@@ -7,56 +7,43 @@ namespace Parser {
         
         for (BF_TOKEN** token = &tokens; **token != INVALID_TOKEN;) {
             switch(**token) {
-                case INC_DATA_PTR:
+                case RIGHT_ANGLE_TOKEN:
                     expressions.push_back(parse_inc_data_ptr(token));
                     break;
-                case DEC_DATA_PTR:
+                case LEFT_ANGLE_TOKEN:
                     expressions.push_back(parse_dec_data_ptr(token));
                     break;
-                case INC_BYTE:
+                case PLUS_TOKEN:
                     expressions.push_back(parse_inc_byte(token));
                     break;
-                case DEC_BYTE:
+                case MINUS_TOKEN:
                     expressions.push_back(parse_dec_byte(token));
                     break;
-                case OUTPUT_BYTE:
+                case PERIOD_TOKEN:
                     expressions.push_back(parse_output_byte(token));
                     break;
-                case INPUT_BYTE:
+                case COMMA_TOKEN:
                     expressions.push_back(parse_input_byte(token));
                     break;
-                case BYTE_EQ_ZERO:
+                case LEFT_BRACKET_TOKEN:
                     expressions.push_back(parse_loop(token));
                     break;
-                case BYTE_NEQ_ZERO:
+                case RIGHT_BRACKET_TOKEN:
                     return false;
-                case COMMENT:
+                case COMMENT_TOKEN:
                     (*token)++;
                 case INVALID_TOKEN:
                     break;
             }
         }
-            
-        //     if (*t == BYTE_EQ_ZERO) {
-        //         open_loops++;
-        //     } 
-        //     else if (*t == BYTE_NEQ_ZERO) {
-        //         open_loops--;
-        //     }
-            
-        //     if (open_loops < 0) {
-        //         return false;
-        //     }
-        // }
-        
-        //return true;open_loops == 0;
+
         return true;
     }
 
     AST::Expression* parse_inc_data_ptr(BF_TOKEN** token) {
         AST::IncDataPtr* inc_data_ptr = new AST::IncDataPtr();
 
-        while(**token == INC_DATA_PTR) {
+        while(**token == RIGHT_ANGLE_TOKEN) {
             inc_data_ptr->increment();
             (*token)++;
         }
@@ -69,7 +56,7 @@ namespace Parser {
     AST::Expression* parse_dec_data_ptr(BF_TOKEN** token) {
         AST::DecDataPtr* dec_data_ptr = new AST::DecDataPtr();
 
-        while(**token == DEC_DATA_PTR) {
+        while(**token == LEFT_ANGLE_TOKEN) {
             dec_data_ptr->decrement();
             (*token)++;
         }
@@ -80,7 +67,7 @@ namespace Parser {
     AST::Expression* parse_inc_byte(BF_TOKEN** token) {
         AST::IncByte* inc_byte = new AST::IncByte();
 
-        while(**token == INC_BYTE) {
+        while(**token == PLUS_TOKEN) {
             inc_byte->increment();
             (*token)++;
         }
@@ -91,7 +78,7 @@ namespace Parser {
     AST::Expression* parse_dec_byte(BF_TOKEN** token) {
         AST::DecByte* dec_byte = new AST::DecByte();
 
-        while(**token == DEC_BYTE) {
+        while(**token == MINUS_TOKEN) {
             dec_byte->decrement();
             (*token)++;
         }

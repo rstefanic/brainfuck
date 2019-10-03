@@ -16,7 +16,7 @@ namespace Lexer
             
             BF_TOKEN token = get_instruction(c); 
             
-            if (token != COMMENT) {
+            if (token != COMMENT_TOKEN) {
                 *token_ptr = token;
                 token_ptr++;
             }
@@ -32,23 +32,23 @@ namespace Lexer
     BF_TOKEN get_instruction(char ch) {
         switch (ch) {
             case '>':
-                return INC_DATA_PTR;
+                return RIGHT_ANGLE_TOKEN;
             case '<':
-                return DEC_DATA_PTR;
+                return LEFT_ANGLE_TOKEN;
             case '+':
-                return INC_BYTE;
+                return PLUS_TOKEN;
             case '-':
-                return DEC_BYTE;
+                return MINUS_TOKEN;
             case '.':
-                return OUTPUT_BYTE;
+                return PERIOD_TOKEN;
             case ',':
-                return INPUT_BYTE;
+                return COMMA_TOKEN;
             case '[':
-                return BYTE_EQ_ZERO;
+                return LEFT_BRACKET_TOKEN;
             case ']':
-                return BYTE_NEQ_ZERO;
+                return RIGHT_BRACKET_TOKEN;
             default:
-                return COMMENT;
+                return COMMENT_TOKEN;
         }
     }
     
@@ -57,14 +57,14 @@ namespace Lexer
         if (strings.size() == 0) {
     #define INSERT_ELEMENT(p) strings[p] = #p
             INSERT_ELEMENT(INVALID_TOKEN);
-            INSERT_ELEMENT(INC_DATA_PTR);
-            INSERT_ELEMENT(DEC_DATA_PTR);
-            INSERT_ELEMENT(INC_BYTE);
-            INSERT_ELEMENT(DEC_BYTE);
-            INSERT_ELEMENT(OUTPUT_BYTE);
-            INSERT_ELEMENT(INPUT_BYTE);
-            INSERT_ELEMENT(BYTE_EQ_ZERO);
-            INSERT_ELEMENT(BYTE_NEQ_ZERO);
+            INSERT_ELEMENT(RIGHT_ANGLE_TOKEN);
+            INSERT_ELEMENT(LEFT_ANGLE_TOKEN);
+            INSERT_ELEMENT(PLUS_TOKEN);
+            INSERT_ELEMENT(MINUS_TOKEN);
+            INSERT_ELEMENT(PERIOD_TOKEN);
+            INSERT_ELEMENT(COMMA_TOKEN);
+            INSERT_ELEMENT(LEFT_BRACKET_TOKEN);
+            INSERT_ELEMENT(RIGHT_BRACKET_TOKEN);
     #undef INSERT_ELEMENT
         }
         
