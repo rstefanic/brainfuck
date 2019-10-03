@@ -22,9 +22,11 @@ namespace Lexer
             }
         }
         
+#if DEBUG
         for (token_ptr = tokens; *token_ptr != INVALID_TOKEN; token_ptr++) {
             std::cout << *token_ptr << "\n";
         }
+#endif
         
         return tokens;
     }
