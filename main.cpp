@@ -2,6 +2,8 @@
 #include "inc/lexer.h"
 #include "inc/parser.h"
 
+void handle_loop_print(AST::Node* node);
+
 int main(int argc, char** argv) {
 
     if (argc > 1) {
@@ -10,15 +12,15 @@ int main(int argc, char** argv) {
         if (stream.is_open()) {
             BF_TOKEN* tokens = Lexer::lex(stream);
 
-            bool successful_parse = Parser::parse(tokens);
-
-            if (!successful_parse) {
-                std::cout << "ERR: Brakets do not match\n";
-                free(tokens);
-                return -1; 
-            }
-            else {
-                std::cout << "Brackets match!\n";
+            std::vector<AST::Node*> ast = Parser::parse(tokens);
+            
+            for(auto n: ast) {
+                if (n->instruction() == AST::LOOP) {
+                    handle_loop_print(n);
+                }
+                else {
+                    std::cout << "INS: " << n->instruction() << " - VAL: " << n->value() << "\n";
+                }
             }
 
             free(tokens);
@@ -32,3 +34,16 @@ int main(int argc, char** argv) {
     return 0;
 }
 
+void handle_loop_print(AST::Node* node) {
+    std::cout << "In Loop:\n";
+    for (auto n: node->subexpressions) {
+        if (n->instruction() == AST::LOOP) {
+            handle_loop_print(n);
+        }
+        else  {
+            std::cout << "\t" << n->instruction() << " -- VAL: " << n->value() << "\n";
+        }
+    }
+    
+    std::cout << "Loop Exit\n";
+}
