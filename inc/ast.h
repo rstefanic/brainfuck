@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 
 namespace AST {
@@ -9,8 +10,6 @@ namespace AST {
         OUTPUT_BYTE,
         INPUT_BYTE,
         LOOP
-        // BYTE_EQ_ZERO,
-        // BYTE_NEQ_ZERO 
     };
     
     class Node {
