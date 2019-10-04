@@ -42,7 +42,7 @@ namespace Interpreter {
                 input_byte();
                 break;
             case AST::LOOP:
-                evaluate_loop(node->subexpressions);
+                evaluate_loop(node->sub_nodes);
                 break;
         }
     }

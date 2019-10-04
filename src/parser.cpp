@@ -110,25 +110,25 @@ namespace Parser {
         while(**token != RIGHT_BRACKET_TOKEN && **token != INVALID_TOKEN) {
             switch(**token) {
                 case RIGHT_ANGLE_TOKEN:
-                    loop->subexpressions.push_back(parse_inc_data_ptr(token));
+                    loop->sub_nodes.push_back(parse_inc_data_ptr(token));
                     break;
                 case LEFT_ANGLE_TOKEN:
-                    loop->subexpressions.push_back(parse_dec_data_ptr(token));
+                    loop->sub_nodes.push_back(parse_dec_data_ptr(token));
                     break;
                 case PLUS_TOKEN:
-                    loop->subexpressions.push_back(parse_inc_byte(token));
+                    loop->sub_nodes.push_back(parse_inc_byte(token));
                     break;
                 case MINUS_TOKEN:
-                    loop->subexpressions.push_back(parse_dec_byte(token));
+                    loop->sub_nodes.push_back(parse_dec_byte(token));
                     break;
                 case PERIOD_TOKEN:
-                    loop->subexpressions.push_back(parse_output_byte(token));
+                    loop->sub_nodes.push_back(parse_output_byte(token));
                     break;
                 case COMMA_TOKEN:
-                    loop->subexpressions.push_back(parse_input_byte(token));
+                    loop->sub_nodes.push_back(parse_input_byte(token));
                     break;
                 case LEFT_BRACKET_TOKEN:
-                    loop->subexpressions.push_back(parse_loop(token));
+                    loop->sub_nodes.push_back(parse_loop(token));
                    break;
                 case RIGHT_BRACKET_TOKEN:
                     parse_error("ERR: Unmatched Right Bracket");

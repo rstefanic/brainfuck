@@ -20,7 +20,7 @@ namespace AST {
         void increment() { _value++; }
         inline INSTRUCTION instruction() { return _instruction; }
         int value() { return _value; }
-        std::vector<Node*> subexpressions;
+        std::vector<Node*> sub_nodes;
         
     private:
         INSTRUCTION _instruction;
