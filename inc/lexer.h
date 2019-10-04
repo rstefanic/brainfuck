@@ -14,8 +14,7 @@ enum BF_TOKEN {
     COMMENT_TOKEN
 };
 
-namespace Lexer 
-{
+namespace Lexer {
     BF_TOKEN* lex(std::istream& stream);
     BF_TOKEN get_instruction(char ch);
     std::ostream& operator<<(std::ostream& out, const BF_TOKEN instruction);

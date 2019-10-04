@@ -5,8 +5,8 @@
 
 void handle_loop_print(AST::Node* node);
 
-int main(int argc, char** argv) {
-
+int main(int argc, char** argv) 
+{
     if (argc > 1) {
         std::ifstream stream = std::ifstream(argv[1]);
         

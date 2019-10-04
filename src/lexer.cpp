@@ -1,8 +1,8 @@
 #include "../inc/lexer.h"
 
-namespace Lexer 
-{
-    BF_TOKEN* lex(std::istream& stream) {
+namespace Lexer {
+    BF_TOKEN* lex(std::istream& stream) 
+    {
         BF_TOKEN* tokens = new BF_TOKEN[30000] { INVALID_TOKEN };
         BF_TOKEN* token_ptr = tokens;
 
@@ -31,7 +31,8 @@ namespace Lexer
         return tokens;
     }
     
-    BF_TOKEN get_instruction(char ch) {
+    BF_TOKEN get_instruction(char ch) 
+    {
         switch (ch) {
             case '>':
                 return RIGHT_ANGLE_TOKEN;
@@ -54,7 +55,8 @@ namespace Lexer
         }
     }
     
-    std::ostream& operator<<(std::ostream& out, const BF_TOKEN instruction) {
+    std::ostream& operator<<(std::ostream& out, const BF_TOKEN instruction) 
+    {
         static std::map<BF_TOKEN, std::string> strings;
         if (strings.size() == 0) {
     #define INSERT_ELEMENT(p) strings[p] = #p
