@@ -1,15 +1,70 @@
 #include "../inc/interpreter.h"
 
 namespace Interpreter {
-    void Environment::Eval() {
-        std::cout << "Evaluating...\n";
+    void Environment::Eval() 
+    {
 #if DEBUG
         debug_print_ast();
 #endif
+
+        for(auto node: _ast) {
+            evaluate_node(node);
+        }
+    }
+    
+    void Environment::evaluate_node(AST::Node* node) 
+    {
+        switch(node->instruction()) {
+            case AST::INCREMENT_DATA_PTR:
+                for(int i = 0; i < node->value(); i++) {
+                    increment_data_ptr();
+                }
+                break;
+            case AST::DECREMENT_DATA_PTR:
+                for(int i = 0; i < node->value(); i++) {
+                    decrement_data_ptr();
+                }
+                break;
+            case AST::INCREMENT_BYTE:
+                for(int i = 0; i < node->value(); i++) {
+                    increment_byte();
+                }
+                break;
+            case AST::DECREMENT_BYTE:
+                for(int i = 0; i < node->value(); i++) {
+                    decrement_byte();
+                }
+                break;
+            case AST::OUTPUT_BYTE:
+                output_byte();
+                break;
+            case AST::INPUT_BYTE:
+                input_byte();
+                break;
+            case AST::LOOP:
+                evaluate_loop(node->subexpressions);
+                break;
+        }
+    }
+    
+    void Environment::evaluate_loop(std::vector<AST::Node*> subexpression) 
+    {
+        if (jump_eq_zero()) {
+            return;
+        }
+        
+        for(auto node: subexpression) {
+            evaluate_node(node);
+        }
+        
+        if (jump_neq_zero()) {
+            evaluate_loop(subexpression);
+        }
     }
     
 #if DEBUG
-    void Environment::debug_print_ast() {
+    void Environment::debug_print_ast() 
+    {
         int loop_indent = 0;
         for(auto n: _ast) {
             if (n->instruction() == AST::LOOP) {
@@ -22,7 +77,8 @@ namespace Interpreter {
         }
     }
     
-    void Environment::handle_loop_print(AST::Node* node, int loop_indent) {
+    void Environment::handle_loop_print(AST::Node* node, int loop_indent) 
+    {
         std::string indent_prefix = "";
         for (int i = 0; i < loop_indent; i++) {
             indent_prefix += "\t";
