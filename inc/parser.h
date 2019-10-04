@@ -5,8 +5,7 @@
 #include "lexer.h"
 #include <vector>
 
-namespace Parser 
-{
+namespace Parser {
     std::vector<AST::Node*> parse(BF_TOKEN* tokens);
     AST::Node* parse_inc_data_ptr(BF_TOKEN** t_pos);
     AST::Node* parse_dec_data_ptr(BF_TOKEN** t_pos);
