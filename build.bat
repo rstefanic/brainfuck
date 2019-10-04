@@ -1,1 +1,1 @@
-call clang++ -Wall main.cpp src/lexer.cpp src/parser.cpp -o brainfuck.exe
+call clang++ -Wall main.cpp src/lexer.cpp src/parser.cpp src/interpreter.cpp -o brainfuck.exe

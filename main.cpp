@@ -1,5 +1,6 @@
-#include "inc/main.h"
+#include "inc/interpreter.h"
 #include "inc/lexer.h"
+#include "inc/main.h"
 #include "inc/parser.h"
 
 void handle_loop_print(AST::Node* node);
@@ -13,16 +14,11 @@ int main(int argc, char** argv) {
             BF_TOKEN* tokens = Lexer::lex(stream);
 
             std::vector<AST::Node*> ast = Parser::parse(tokens);
-            
-            for(auto n: ast) {
-                if (n->instruction() == AST::LOOP) {
-                    handle_loop_print(n);
-                }
-                else {
-                    std::cout << "INS: " << n->instruction() << " - VAL: " << n->value() << "\n";
-                }
-            }
 
+            auto evaluator = new Interpreter::Environment(ast);
+
+            evaluator->Eval();
+            
             free(tokens);
         }
     }
@@ -32,18 +28,4 @@ int main(int argc, char** argv) {
     }
 
     return 0;
-}
-
-void handle_loop_print(AST::Node* node) {
-    std::cout << "In Loop:\n";
-    for (auto n: node->subexpressions) {
-        if (n->instruction() == AST::LOOP) {
-            handle_loop_print(n);
-        }
-        else  {
-            std::cout << "\t" << n->instruction() << " -- VAL: " << n->value() << "\n";
-        }
-    }
-    
-    std::cout << "Loop Exit\n";
 }
