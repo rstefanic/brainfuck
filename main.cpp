@@ -35,12 +35,11 @@ void run_repl(std::istream& input)
 {
     const std::string new_command_prompt = ">> ";
     const std::string continuing_command_prompt = ".. ";
-    bool running = true;
 
     std::cout << "Brainfuck 1.0.0\n";
     std::cout << "Type \"quit\" to quit.\n";
 
-    while (running) {
+    while (1) {
         std::string code;
         int open_braces = 0;
 
